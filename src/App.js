@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import KeyHandler, {KEYPRESS} from 'react-key-handler';
 import logo from './logo.svg';
+import black from './black.png';
+import white from './white.png';
+import red from './red.png';
 import './App.css';
 
 function Cell(props){
-    return props.value;
+  switch(props.value){
+    case "1": return <img src={black} alt="snake"/>;
+    case "2": return <img src={red} alt="food"/>;
+    default: return <img src={white} alt="blank"/>;
+  }
 }
 function Grid(props){
   var ret = [];
@@ -13,7 +20,7 @@ function Grid(props){
     for(var y=0;y<props.size;y++){
       cells.push(<Cell key={x*10+y} value={props.stuff[x][y]}/>);
     }
-    ret.push(<div key= {x*100+y*10}>{cells}</div>);
+    ret.push(<div className="row">{cells}</div>);
   }
   return (<div>{ret}</div>);
 }
@@ -44,14 +51,14 @@ class Game extends Component{
   render(){
     var temp = [];
     for (var i=0;i<10;i++){
-      temp.push(Array(this.state.size).fill('__'));
+      temp.push(Array(this.state.size).fill('0'));
     }
     for(i=0;i<this.state.snake.length;i++){
-      temp[this.state.snake[i][0]][this.state.snake[i][1]]='O';
+      temp[this.state.snake[i][0]][this.state.snake[i][1]]='1';
     }
-    temp[this.state.food[0]][this.state.food[1]]='X';
+    temp[this.state.food[0]][this.state.food[1]]='2';
     return (
-      <div>
+      <div className="grid">
       <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowDown" onKeyHandle={this.handleKeyPress.bind(this)} /> 
       <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowUp" onKeyHandle={this.handleKeyPress.bind(this)} /> 
       <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowRight" onKeyHandle={this.handleKeyPress.bind(this)} /> 
@@ -106,10 +113,10 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Snake in React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Check App.js for the source!
         </p>
           <Game/>
       </div>

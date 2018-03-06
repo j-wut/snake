@@ -30,3 +30,14 @@
 root{
   font:Arial;
 }
+
+.row{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.grid{
+  outline: thick solid #000000;
+  display: inline-block;
+  text-align:center;
+}
