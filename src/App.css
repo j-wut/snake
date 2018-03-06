@@ -41,3 +41,7 @@ root{
   display: inline-block;
   text-align:center;
 }
+
+img{
+  margin: 5px;
+}

@@ -72,6 +72,9 @@ class Game extends Component{
       var snake = this.state.snake.slice();
       var food = this.state.food.slice();
       var next = snake[0].slice();
+      var straight = snake[0].slice();
+      straight[0] = (snake[0][0]-snake[1][0])+snake[0][0];
+      straight[1] = (snake[0][1]-snake[1][1])+snake[0][1];
 
       switch(this.state.dir){
         case 'ArrowLeft': next[1]--; break;
@@ -79,6 +82,9 @@ class Game extends Component{
         case 'ArrowUp': next[0]--; break;
         case 'ArrowDown': next[0]++; break;
         default: return;
+      }
+      if(next[0]==snake[1][0] && next[1]==snake[1][1]){
+        next=straight;
       }
       if (next[0]<0 || next[0]>=10 || next[1]<0 || next[1]>=10){
         this.resetGame(); //wall
