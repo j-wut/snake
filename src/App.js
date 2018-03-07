@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import KeyHandler, {KEYPRESS} from 'react-key-handler';
 import logo from './logo.svg';
 import black from './black.png';
 import white from './white.png';
@@ -40,6 +39,11 @@ class Game extends Component{
   handleKeyPress(event){
     this.setState({dir:event.key});
   }
+
+  componentDidMount(){
+    window.onkeydown = this.handleKeyPress.bind(this);
+  }
+
   resetGame(){
     this.setState({
       size: 10,
@@ -59,10 +63,6 @@ class Game extends Component{
     temp[this.state.food[0]][this.state.food[1]]='2';
     return (
       <div className="grid">
-      <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowDown" onKeyHandle={this.handleKeyPress.bind(this)} /> 
-      <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowUp" onKeyHandle={this.handleKeyPress.bind(this)} /> 
-      <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowRight" onKeyHandle={this.handleKeyPress.bind(this)} /> 
-      <KeyHandler keyEventName={KEYPRESS} keyValue="ArrowLeft" onKeyHandle={this.handleKeyPress.bind(this)} /> 
       <Grid size={this.state.size} stuff={temp}/>
       </div>
     );
@@ -81,7 +81,7 @@ class Game extends Component{
         case 'ArrowRight': next[1]++; break;
         case 'ArrowUp': next[0]--; break;
         case 'ArrowDown': next[0]++; break;
-        default: return;
+        default: next = straight; break;
       }
       if(next[0]==snake[1][0] && next[1]==snake[1][1]){
         next=straight;
