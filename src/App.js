@@ -46,7 +46,6 @@ class Game extends Component{
 
   resetGame(){
     this.setState({
-      size: 10,
       snake: Array(3).fill(Array(2).fill(0)),
       food: Array(2).fill(4),
       dir: "ArrowRight",
@@ -54,7 +53,7 @@ class Game extends Component{
   }
   render(){
     var temp = [];
-    for (var i=0;i<10;i++){
+    for (var i=0;i<this.state.size;i++){
       temp.push(Array(this.state.size).fill('0'));
     }
     for(i=0;i<this.state.snake.length;i++){
@@ -86,7 +85,7 @@ class Game extends Component{
       if(next[0]==snake[1][0] && next[1]==snake[1][1]){
         next=straight;
       }
-      if (next[0]<0 || next[0]>=10 || next[1]<0 || next[1]>=10){
+      if (next[0]<0 || next[0]>=this.state.size || next[1]<0 || next[1]>=this.state.size){
         this.resetGame(); //wall
         return;
       }
@@ -98,8 +97,8 @@ class Game extends Component{
       }
       if (next[0]===food[0] && next[1]===food[1]){
           food= [];
-          food.push(Math.floor(Math.random()*10)); // grow
-          food.push(Math.floor(Math.random()*10));
+          food.push(Math.floor(Math.random()*this.state.size)); // grow
+          food.push(Math.floor(Math.random()*this.state.size));
           this.setState({food:food});
           snake.unshift(next);
           this.setState({snake:snake});
