@@ -33,15 +33,15 @@ class Game extends Component{
       food: Array(2).fill(4),
       dir: "ArrowRight",
     };
-    this.timeInterval = setInterval(this.update.bind(this), 150);
+    this.timeInterval = setInterval(this.update, 150);
   }
 
-  handleKeyPress(event){
+  handleKeyPress = (event) => {
     this.setState({dir:event.key});
   }
 
   componentDidMount(){
-    window.onkeydown = this.handleKeyPress.bind(this);
+    window.onkeydown = this.handleKeyPress;
   }
 
   resetGame(){
@@ -67,7 +67,7 @@ class Game extends Component{
       </div>
     );
   }
-  update(){
+  update = () =>{
     if(this.state.dir){
       var snake = this.state.snake.slice();
       var food = this.state.food.slice();
